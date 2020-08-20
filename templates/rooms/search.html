@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+
+    Search
+
+{% endblock page_title %}
+
+{% block search-bar %}
+{% endblock search-bar %}
+{% comment %} search-bar를 base.html로 옮긴 이유는 다른 form을 가지기 위해서이다. {% endcomment %}
+
+{% block content %}
+
+    <h2>Search!</h2>
+
+    <form method="get" action="{% url "rooms:search" %}">
+       {{form.as_p}}
+        <button>Search</button>
+    </form>
+    <h3>Results</h3>
+    {% for room in rooms %}
+        <h3>{{room.name}}</h3>    
+    {% endfor %}
+
+{% endblock content %}
