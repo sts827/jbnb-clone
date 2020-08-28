@@ -4,8 +4,10 @@ from . import models
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
 
     def clean(self):
         email = self.cleaned_data.get("email")
@@ -20,14 +22,27 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User does not exist"))
 
 
+# forms.ModelForm대신 UserCreationForm사용가능
+
+
 class SignUpForm(forms.ModelForm):
     # 모든 ModelForm은  save method를 가지고 있다.에러가 있으면 저장을 하고, 다시 돌아가는 느낌적인 느낌?..
     class Meta:
         model = models.User
         fields = ("first_name", "last_name", "email")
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
+            "email": forms.EmailInput(attrs={"placeholder": "Email Name"}),
+        }
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
+    )
     # first_name = forms.CharField(max_length=80)
     # last_name = forms.CharField(max_length=80)
     # email = forms.EmailField()
@@ -36,9 +51,7 @@ class SignUpForm(forms.ModelForm):
         email = self.cleaned_data.get("email")
         try:
             models.User.objects.get(email=email)
-            raise forms.ValidationError(
-                "That email is already taken", code="existing_user"
-            )
+            raise forms.ValidationError("이메일 중복, 다른 이메일로 해주세요", code="existing_user")
         except models.User.DoesNotExist:
             return email
 

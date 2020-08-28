@@ -45,7 +45,7 @@ class RoomAdmin(admin.ModelAdmin):
         (
             "More About Space",
             {
-                "classes": ("collapse",),  # 내용을 숨기거나 보이거나 할 수 있다. default는 hide
+                # 내용을 숨기거나 보이거나 할 수 있다. default는 hide
                 "fields": ("amenities", "facilities", "house_rules"),
             },
         ),
@@ -97,7 +97,11 @@ class RoomAdmin(admin.ModelAdmin):
     # =	iexact
     # @	search
     # None	icontains
-    search_fields = ("=city", "^host__username")
+    search_fields = (
+        "=city",
+        "^host__username",
+        "=currency",
+    )
 
     # Many to Many relation에서 사용하는 horizontal filter
     filter_horizontal = ("amenities", "facilities", "house_rules")
@@ -121,9 +125,9 @@ class PhotoAdmin(admin.ModelAdmin):
 
     list_display = ("__str__", "get_thumbnail")
 
+    # 가끔 장고에서 obj 안에 있는 내용을 볼려고 할때 보여지는 결과가 전부가 아닐 수도 있다.
+    # return obj.file.url
     def get_thumbnail(self, obj):
-        # 가끔 장고에서 obj 안에 있는 내용을 볼려고 할때 보여지는 결과가 전부가 아닐 수도 있다.
-        # return obj.file.url
-        return mark_safe(f'<img src="{obj.file.url}" width="50px" />')
+        return mark_safe(f'<img width="50px" src="{obj.file.url}" />')
 
     get_thumbnail.short_description = "Thumbnail"

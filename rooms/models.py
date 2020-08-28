@@ -1,7 +1,9 @@
+from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 from core import models as core_models
 from django_countries.fields import CountryField
+from cal import Calendar
 
 # from users import models as user_models
 
@@ -83,6 +85,7 @@ class Room(core_models.TimeStampedModel):
     country = CountryField()
     city = models.CharField(max_length=80)
     price = models.IntegerField()
+    # address -> 지도로 띠워주기
     address = models.CharField(max_length=140)
     beds = models.IntegerField()
     bedrooms = models.IntegerField()
@@ -98,15 +101,15 @@ class Room(core_models.TimeStampedModel):
     host = models.ForeignKey(
         "users.User", related_name="rooms", on_delete=models.CASCADE
     )
-    # foreign key를 쓰지 않는 이유는 일대다 관계가 아니라 다대다 관계이기 때문
     room_type = models.ForeignKey(
         "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
     )
+    # foreign key를 쓰지 않는 이유는 일대다 관계가 아니라 다대다 관계이기 때문
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
-    # facility
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     # house_rule
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
+    # category => models.ManyToManyField("category",related_name="")
 
     def __str__(self):
         return self.name
@@ -131,3 +134,25 @@ class Room(core_models.TimeStampedModel):
                 all_ratings += review.rating_average()
             return all_ratings / len(all_reviews)
         return
+
+    def first_photo(self):
+        try:
+            (photo,) = self.photos.all()[:1]  # 전체 방에서 첫번쨰 사진들
+            return photo.file.url
+        except ValueError:
+            return None
+
+    def get_next_four_photos(self):
+        photos = self.photos.all()[1:5]  # 각방에서 첫번째부터 네번째 사진들 출력
+        return photos
+
+    def get_calendars(self):
+        now = timezone.now()
+        this_year = now.year
+        this_month = now.month
+        next_month = this_month + 1
+        if this_month == 12:
+            next_month = 1
+        this_month_cal = Calendar(this_year, this_month)
+        next_month_cal = Calendar(this_year, next_month)
+        return [this_month_cal, next_month_cal]

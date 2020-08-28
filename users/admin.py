@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
             "Custom profile",
             {
                 "fields": (
-                    "avata",
+                    "avatar",
                     "gender",
                     "bio",
                     "birthdate",
@@ -25,7 +25,7 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    list_filter = UserAdmin.list_filter + ("superhost", "city")
+    list_filter = UserAdmin.list_filter + ("superhost", "city", "currency")
 
     list_display = (
         # Model에서 생성된 field를 admin패널에서 보여줄 때 column항목

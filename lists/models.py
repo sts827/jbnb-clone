@@ -7,7 +7,7 @@ class List(core_models.TimeStampedModel):
     """ Lists model Definition """
 
     name = models.CharField(max_length=80)
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         "users.User", related_name="lists", on_delete=models.CASCADE
     )
     # list하나는 많은 room을 가질 수 있다.

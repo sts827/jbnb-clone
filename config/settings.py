@@ -45,15 +45,16 @@ PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
-    # "photo.apps.PhotoConfig",
     "reviews.apps.ReviewsConfig",
     "reservations.apps.ReservationsConfig",
     "lists.apps.ListsConfig",
     "conversations.apps.ConversationsConfig",
+    "maps.apps.MapsConfig",
 ]
+THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 
 MIDDLEWARE = [
@@ -127,9 +128,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+# STATIC_URL은 그냥 서버의 URL이지 directory가 아니다
 STATIC_URL = "/static/"
 
+# 어떤파일을 어디에 있는지 알려줘야 django가 파일을 열어서 볼수 있따.
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 AUTH_USER_MODEL = "users.User"
 
 # media_root는 장고에게 우리가 업로드한 파일을들을 저장할지 알려주는 것임
@@ -150,3 +153,5 @@ EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
 EMAIL_FROM = "jbnb_project@sandbox484342a3461e4acca958596514499b73.mailgun.org"
 
+# Auth
+LOGIN_URL = "/users/login"
