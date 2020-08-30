@@ -71,11 +71,7 @@ class RoomAdmin(admin.ModelAdmin):
         "total_rating",
     )
 
-    ordering = (
-        "name",
-        "price",
-        "bedrooms",
-    )
+    ordering = ("-created",)
 
     #  filter bar를 생성
     list_filter = (

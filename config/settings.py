@@ -49,7 +49,7 @@ PROJECT_APPS = [
     "reservations.apps.ReservationsConfig",
     "lists.apps.ListsConfig",
     "conversations.apps.ConversationsConfig",
-    "maps.apps.MapsConfig",
+    "foods.apps.FoodsConfig",
 ]
 THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 
@@ -131,9 +131,9 @@ USE_TZ = True
 # STATIC_URL은 그냥 서버의 URL이지 directory가 아니다
 STATIC_URL = "/static/"
 
+AUTH_USER_MODEL = "users.User"
 # 어떤파일을 어디에 있는지 알려줘야 django가 파일을 열어서 볼수 있따.
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-AUTH_USER_MODEL = "users.User"
 
 # media_root는 장고에게 우리가 업로드한 파일을들을 저장할지 알려주는 것임
 # 기본적으로 setting.py에 상단쪽에 BASE_DIR 가 있으며 현재 작업하는 project의 절대경로로 나타낸다.
@@ -155,3 +155,6 @@ EMAIL_FROM = "jbnb_project@sandbox484342a3461e4acca958596514499b73.mailgun.org"
 
 # Auth
 LOGIN_URL = "/users/login"
+
+# Locale
+LOCALE_PATH = (os.path.join(BASE_DIR, "locale"),)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from core import models as core_models
 
 # Create your models here.
@@ -11,12 +12,21 @@ class Review(core_models.TimeStampedModel):
     # 3. 그리고 마지막엔 def __str__(self): return self."name" 이나 class 안에 class Meta:를 생성한다.
     # Field가 생성되면 admin패널에서 설치한다.
     review = models.TextField()
-    accuracy = models.IntegerField()
-    communication = models.IntegerField()
-    cleanlines = models.IntegerField()
-    location = models.IntegerField()
+    accuracy = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    communication = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    cleanlines = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    location = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+
     check_in = models.IntegerField()
-    value = models.IntegerField()
+    value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     # foreign key로 연결된 Object에서 value값을 가져 올수 있다.
     user = models.ForeignKey(
         "users.User", related_name="reviews", on_delete=models.CASCADE
@@ -42,4 +52,7 @@ class Review(core_models.TimeStampedModel):
         ) / 6
         return round(avg, 2)
 
-    rating_average.short_description = "Avg"
+    rating_average.short_description = "Room_Avg"
+
+    class Meta:
+        ordering = ("-created",)  # 어떤 model을 ordering할것인지 정함

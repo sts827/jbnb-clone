@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-{{user.first_name}}'s Fav
+{{user_obj.first_name}}님의 프로필
 {% endblock page_title %}
 
 {% block content %}
-
 <div class="min-h-75vh">
 
-    <h3 class="mb-12 text-2xl text-center">Your Favourites</h3>
+    {% if user.avatar %}
+    <div class="justify-center {{h_and_w|default:'h-20 w-20'}} rounded-full bg-cover mx-auto mb-2"
+        style="background-image: url({{user.avatar.url}});"></div>
+    {% endif %}
 
-
-    <div class="container mx-auto pb-10 ">
-        <div class="flex flex-wrap -mx-40 mb-10">
+    <h3 class="mb-12 text-2xl text-center">{{user.first_name}}'s Favorites</h3>
+    <div class="container mx-auto pb-10">
+        <div class="flex flex-wrap -mx-10 mb-10">
             {% for room in user.list.rooms.all  %}
             {% include 'mixins/room_card.html' with room=room %}
             {% endfor %}
         </div>
     </div>
-
-
 </div>
 {% endblock content %}

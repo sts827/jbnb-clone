@@ -9,6 +9,7 @@ class TimeStampedModel(models.Model):
     updated = models.DateTimeField(auto_now=True)
     objects = managers.CustomModelManager()
 
+    # 공통적으로 들어가는 요소들을 DB에 저장하지 않고 기능만 사용하기 위해서 abstarct = true
     class Meta:
-        abstract = True
+        abstract = True  # AbstractModel은 model이지만 DB에 나타나지 않은 model
 

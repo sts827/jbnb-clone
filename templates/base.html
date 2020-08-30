@@ -26,7 +26,7 @@
             <form method="get" action="{% url "rooms:search" %}">
                 <input
                     class="search-box border px-5 w-full font-medium text-gray-800 placeholder-gray-600 py-3 rounded-lg"
-                    name="city" placeholder="Search By.." />
+                    name="city" placeholder="{% trans "Search By" %}" />
             </form>
             {% endblock search-bar %}
         </div>

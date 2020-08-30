@@ -110,6 +110,8 @@ class Room(core_models.TimeStampedModel):
     # house_rule
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
     # category => models.ManyToManyField("category",related_name="")
+    class Meta:
+        ordering = ("-created",)
 
     def __str__(self):
         return self.name
@@ -156,3 +158,4 @@ class Room(core_models.TimeStampedModel):
         this_month_cal = Calendar(this_year, this_month)
         next_month_cal = Calendar(this_year, next_month)
         return [this_month_cal, next_month_cal]
+
