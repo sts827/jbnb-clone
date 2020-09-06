@@ -9,8 +9,11 @@ class SearchForm(forms.Form):
     # form도 fields가 있다. Form Fields는 widget을 html에 render하는 것이다.
     city = forms.CharField(initial="Anywhere")
     country = CountryField(default="KR").formfield()
+    # modelChoicesField
     room_type = forms.ModelChoiceField(
-        required=False, empty_label="Any kind", queryset=models.RoomType.objects.all()
+        required=False,
+        empty_label="어떤 숙소를 찾으시나요?",
+        queryset=models.RoomType.objects.all(),
     )
 
     # choices

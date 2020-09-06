@@ -110,8 +110,6 @@ class Room(core_models.TimeStampedModel):
     # house_rule
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
     # category => models.ManyToManyField("category",related_name="")
-    class Meta:
-        ordering = ("-created",)
 
     def __str__(self):
         return self.name

@@ -12,5 +12,5 @@ from rooms import views as room_views
 app_name = "core"
 # django에는 class based view라는 기능이 있다.=>HomeView
 # class based view는 오직 한가지 기능만 할 수 있고 특화되있다.
-urlpatterns = [path("", room_views.HomiView.as_view(), name="home")]
+urlpatterns = [path("", room_views.HomiView.as_view(), name="home")]  # 처음 화면을 여기서 수정가능
 

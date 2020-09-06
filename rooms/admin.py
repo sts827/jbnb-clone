@@ -24,7 +24,7 @@ class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
 
-    inlines = (PhotoInline,)
+    inlines = (PhotoInline,)  # admin안에서 또다른 admin을 보여주는 inlines
     # fields셋 정리 => admin패널과 admin패널에 보이는 항목들,
     fieldsets = (
         (

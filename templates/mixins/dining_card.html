@@ -1,0 +1,15 @@
+{% load static i18n %}
+<div class="mx-auto w-1/4 mb-10 px-2 overflow-hidden">
+    <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2 " style="background-image: url({{dining.food_photo}});">
+    </div>
+    <!-- div를 여러개 <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2" style="background-image:url({% static 'img/1.jpg' %})"> -->
+    <div class="flex justify-between mb-2 truncate">
+        <div class="w-4/5 overflow-hidden flex">
+            {% if dining.host%}
+            <span class="mr-2 uppercase font-medium text-xs border border-black text-red-600 rounded py-px px-1">이달의
+                추천</span>
+            {% endif %}
+            <span class="text-sm text-gray-600 block truncate">{{dining.name}}, {{dining.address}}</span>
+        </div>
+    </div>
+</div>

@@ -6,9 +6,19 @@ Home
 
 {% block content %}
 <div class="container mx-auto pb-10">
-    <div class="rounded-xl bg-gray-800 h-50vh mt-32 mb-24 bg-cover bg-center"
-        style="background-image: url('static/img/bg.jpg');">
+    <ul class="py-10 flex flex-wrap justify-center">
+        <li class="mx-3 text-3xl hover:text-teal-400" id=""><a href="{% url 'rooms:room_list' %}">숙박</a></li>
+        <li class="mx-3 text-3xl hover:text-teal-400" id=""><a href="{% url 'dinings:dining_list' %}">추천</a></li>
+    </ul>
+
+    <div>
+        {% if category is "호텔" %}
+        {% for room in rooms %}
+        {% include 'mixins/room_card.html' with room=room %}
+        {% endfor %}
+        {% endif %}
     </div>
+
     <div class="flex flex-wrap">
         <!-- 개인추천화 시스템 -> superhost만 보이게 수정 -->
         <!-- div class="flex-wrap -mx-40 mb-10" => class명 변경-->
@@ -16,7 +26,6 @@ Home
         {% include 'mixins/room_card.html' with room=room %}
         {% endfor %}
     </div>
-
     <div class="flex items-center justify-center mx-auto container">
         {% if page_obj.has_previous %}
         <a href="?page={{page_obj.previous_page_number}}" class="text-teal-500"><i
@@ -31,5 +40,4 @@ Home
         {% endif%}
     </div>
 </div>
-
 {% endblock content %}

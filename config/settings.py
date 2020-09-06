@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "9@w+ft-4xwmdgbpv(ma1-&iqh)%twicmeptab050g4yawdb6-_"
+# SECRET_KEY를 .ENV에 분리해서 놓았음. 각 장고에 맞는 Secret_key를 활용하기 바람
+SECRET_KEY = os.environ.get("DJANGO_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # production개발인지? developement개발인지?를 파악할수 있는 부분이 Debug부분이다.
@@ -49,7 +50,7 @@ PROJECT_APPS = [
     "reservations.apps.ReservationsConfig",
     "lists.apps.ListsConfig",
     "conversations.apps.ConversationsConfig",
-    "foods.apps.FoodsConfig",
+    "dinings.apps.DiningsConfig",
 ]
 THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 

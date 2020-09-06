@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}
+Food_list
+{% endblock page_title%}
+
+{% block content %}
+<div class="mb-6 text-3xl"><span class="flex justify-center hover:text-red-500">이달의 추천</span></div>
+<div class="container flex flex-wrap mx-auto pb-10">
+    {% for dining in dinings %}
+    {% include 'mixins/dining_card.html' with dining=dining %}
+    {% endfor %}
+</div>
+{% endblock %}

@@ -52,7 +52,13 @@ class Review(core_models.TimeStampedModel):
         ) / 6
         return round(avg, 2)
 
-    rating_average.short_description = "Room_Avg"
+    rating_average.short_description = "Avg"
+
+    def food_rating(self):
+        avg = (self.accuracy + self.location + self.cleanlines + self.value) / 4
+        return round(avg, 2)
+
+    food_rating.short_description = "Food_Avg"
 
     class Meta:
         ordering = ("-created",)  # 어떤 model을 ordering할것인지 정함

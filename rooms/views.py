@@ -21,11 +21,10 @@ class HomiView(ListView):
     """ HomeView Definition """
 
     # 오직 model을 정의함으로써 자동적으로 HomeView 클래스에서 model에 있는 List를 보여줄수 있다.
-
     model = models.Room
     paginate_by = 12
     paginate_orphans = 3
-    ordering = "created"
+    ordering = "-created"
     context_object_name = "rooms"
 
 
@@ -37,6 +36,19 @@ class RoomDetail(DetailView):
     model = models.Room
 
 
+def get_find_room(request):
+    # title = request.GET("category")
+    category = request.GET.get("room_category")  # 수정이 필요함 :None
+    print(category)
+    return render(request, "rooms/room_list.html", {"category": category})
+
+
+def map_view(request):
+    ## 추후 context에 map_data를 삽입합시다.
+
+    return render(request, "maps/map_view.html")
+
+
 class SearchView(View):
 
     """ Search View Defintion :: search-box에서 room을 찾는다."""
@@ -45,9 +57,7 @@ class SearchView(View):
         country = request.GET.get("country")
         if country:
             form = forms.SearchForm(request.GET)
-
             if form.is_valid():
-
                 city = form.cleaned_data.get("city")
                 country = form.cleaned_data.get("country")
                 room_type = form.cleaned_data.get("room_type")
@@ -107,7 +117,7 @@ class SearchView(View):
 
                 # render는 html에 내용을 담아 표시하는것(rendering)
                 return render(
-                    request, "rooms/search.html", {"form": form, "rooms": rooms}
+                    request, "maps/search.html", {"form": form, "rooms": rooms}
                 )
 
         else:

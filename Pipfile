@@ -16,6 +16,9 @@ django-countries = "*"
 django-seed = "*"
 django-dotenv = "*"
 python-gettext = "*"
+pandas = "*"
+xlrd = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.7"

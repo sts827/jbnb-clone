@@ -192,7 +192,7 @@ def kakao_callback(request):
         token_json = token_request.json()
         error = token_json.get("error", None)
         if error is not None:
-            raise KakaoException("Auth_Code에러, 문의 해주세요")
+            raise KakaoException("Auth_Code에러, 개발자에 문의 해주세요")
         access_token = token_json.get("access_token")
         # 사용자의 정보 요청 (post혹은 get)
         profile_request = requests.get(
@@ -236,7 +236,7 @@ def kakao_callback(request):
             user.set_unusable_password()
             user.save()
         login(request, user)
-        messages.success(request, f"환영합니다!! {user.first_name}님")
+        messages.success(request, f"환영합니다!! {user.first_name}님, 통영사랑 상품권 사용 가능지역입니다.")
         return redirect(reverse("core:home"))
     except KakaoException as e:
         messages.error(request, e)
