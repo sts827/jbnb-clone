@@ -1,6 +1,6 @@
 /* Location 정보 가져오기 */
 const weather = document.querySelector(".js-weather");
-const API_KEY = "feb793ec48123474580d7168b8e8a261";
+const API_KEY = "#";
 const COORDS = "coords";
 
 function getWeather(lat, lng) {
